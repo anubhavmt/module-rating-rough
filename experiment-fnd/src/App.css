@@ -1,0 +1,23 @@
+.template {
+  margin-left: 20%;
+  margin-top: 20px;
+  margin-right: 20%;
+  border: 2px solid black;
+}
+
+.form {
+  margin-left: 20%;
+  margin-top: 20px;
+  margin-right: 20%;
+  padding: 10px;
+  border: 5px solid brown;
+}
+#fname {
+  margin: 10px;
+  height: 20px;
+}
+.author {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}

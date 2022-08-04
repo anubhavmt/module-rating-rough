@@ -1,0 +1,48 @@
+type ResourceRatingFeedback {
+  resourceId: ID!
+  resourceType: String!
+  Configurations: ResourceRatingFeedbackConfigurations!
+  averageRating: Float!
+  totalRatings: Int!
+}
+type ResourceRatingFeedbackConfigurations {
+  enableRatingsOnResource: Boolean!
+  enableFeedbackOnResourse: Boolean!
+}
+type UserResourceRatingFeedback {
+  userId: ID!
+  resourceId: ID!
+  rating: Int!
+  feedback: String!
+  updatedAt: Int! #DateTime
+}
+type Query {
+  getResourceRatingFeedback(resourceId: ID!): ResourceRatingFeedback!
+  getUserResourceRatingFeedback(
+    userId: ID!
+    resourceId: ID!
+  ): UserResourceRatingFeedback!
+}
+input ResourceRatingFeedbackConfigurationsInput {
+  enableRatingsOnResource: Boolean!
+  enableFeedbackOnResourse: Boolean!
+}
+type Mutation {
+  setUserResourceRatingFeedback(
+    userId: ID!
+    resourceId: ID!
+    rating: Int
+    feedback: String
+    Updatetime: Int!
+  ): UserResourceRatingFeedback!
+
+  setResourceRatingFeedbackConfiguration(
+    resourceId: ID!
+    configurations: ResourceRatingFeedbackConfigurationsInput!
+  ): ResourceRatingFeedback!
+
+  resetUserResourceRatingFeedback(
+    userId: ID!
+    resourceId: ID!
+  ): UserResourceRatingFeedback!
+}
