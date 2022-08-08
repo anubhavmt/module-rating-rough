@@ -10,13 +10,9 @@ function CompletionView(props: any) {
     userId: "1",
   });
 
-  // const [userdata, setUserdata] = useState(data.getUserResourceRatingFeedback);
   let userdata: any = data.getUserResourceRatingFeedback;
   const [popup, setPopup] = useState(1);
 
-  // function HandleUserdata(value: any) {
-  //   setUserdata(value);
-  // }
   function HandleVisibility(value: number) {
     setPopup(value);
   }
