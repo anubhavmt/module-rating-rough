@@ -10,12 +10,13 @@ function HeaderView(props: any) {
     userId: "1",
   });
 
-  const [userdata, setUserdata] = useState(data.getUserResourceRatingFeedback);
+  // const [userdata, setUserdata] = useState(data.getUserResourceRatingFeedback);
+  let userdata: any = data.getUserResourceRatingFeedback;
   const [popup, setPopup] = useState(0);
 
-  function HandleUserdata(value: any) {
-    setUserdata(value);
-  }
+  // function HandleUserdata(value: any) {
+  //   setUserdata(value);
+  // }
   function HandleVisibility(value: number) {
     setPopup(value);
   }
@@ -41,7 +42,6 @@ function HeaderView(props: any) {
               popup={popup}
               popupvisibility={HandleVisibility}
               userdata={userdata}
-              onChangeUser={HandleUserdata}
               resourcedata={data.getResourceRatingFeedback}
             />
           ) : (

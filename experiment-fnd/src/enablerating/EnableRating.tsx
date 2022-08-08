@@ -23,11 +23,11 @@ const RatingConfigMutation = graphql`
       resourceId: $resourceId
       configurations: $configurations
     ) {
+      id
       Configurations {
         enableRatingsOnResource
         enableFeedbackOnResourse
       }
-      resourceId
     }
   }
 `;
@@ -38,9 +38,10 @@ function EnableRating() {
   });
   console.log(data);
 
-  const [configuration, setConfiguration] = useState(
-    data.getResourceRatingFeedback.Configurations
-  );
+  let configuration: any = data.getResourceRatingFeedback.Configurations;
+  // const [configuration, setConfiguration] = useState(
+  //   data.getResourceRatingFeedback.Configurations
+  // );
 
   function HandleToggle(e: any) {
     e.preventDefault();
@@ -50,10 +51,10 @@ function EnableRating() {
     }
 
     // console.log(value);
-    setConfiguration({
-      enableRatingsOnResource: value,
-      enableFeedbackOnResourse: configuration.enableFeedbackOnResourse,
-    });
+    // setConfiguration({
+    //   enableRatingsOnResource: value,
+    //   enableFeedbackOnResourse: configuration.enableFeedbackOnResourse,
+    // });
 
     commitMutation(environment, {
       mutation: RatingConfigMutation,

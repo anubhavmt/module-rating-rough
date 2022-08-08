@@ -1,0 +1,4 @@
+*.log
+__generated__
+server/node_modules
+experiment-fnd/node_modules

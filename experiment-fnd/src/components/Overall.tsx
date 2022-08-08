@@ -4,7 +4,7 @@ import "./ComponentIndex.css";
 
 const overallFragment = graphql`
   fragment Overall_ResouceFragment on ResourceRatingFeedback {
-    resourceId
+    id
     averageRating
     totalRatings
   }

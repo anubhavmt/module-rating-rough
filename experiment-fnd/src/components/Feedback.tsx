@@ -2,14 +2,16 @@ import { commitMutation } from "relay-runtime";
 import { graphql } from "babel-plugin-relay/macro";
 import environment from "../RelayEnvironment";
 import "./ComponentIndex.css";
+import { useFragment } from "react-relay";
 
-// const FeedbackFragment = graphql`
-//   fragment Feedback_UserFragment on UserResourceRatingFeedback {
-//     userId
-//     feedback
-//     updatedAt
-//   }
-// `;
+const FeedbackFragment = graphql`
+  fragment Feedback_UserFragment on UserResourceRatingFeedback {
+    id
+    resourceId
+    feedback
+    updatedAt
+  }
+`;
 const FeedbackMutation = graphql`
   mutation FeedbackMutation(
     $userId: ID!
@@ -23,14 +25,18 @@ const FeedbackMutation = graphql`
       Updatetime: $updatetime
       feedback: $feedback
     ) {
-      userId
-      rating
+      id
+      resourceId
       feedback
+      updatedAt
     }
   }
 `;
 
 function Feedback(props: any) {
+  let user: any = useFragment(FeedbackFragment, props.user);
+  console.log(user);
+
   function HandleSubmit(e: any) {
     e.preventDefault();
 
@@ -39,19 +45,11 @@ function Feedback(props: any) {
     commitMutation(environment, {
       mutation: FeedbackMutation,
       variables: {
-        userId: props.user.userId,
-        resourceId: props.user.resourceId,
-        updatetime: props.user.updatedAt,
+        userId: user.id,
+        resourceId: user.resourceId,
+        updatetime: user.updatedAt,
         feedback: here,
       },
-    });
-
-    props.onChange({
-      userId: props.user.userId,
-      resourceId: props.user.resourceId,
-      rating: props.user.rating,
-      feedback: here,
-      updatedAt: props.user.updatedAt,
     });
 
     props.visibility(0);
@@ -64,7 +62,7 @@ function Feedback(props: any) {
   return (
     <div className="feedbackrating">
       <form className="feedbackrating" onSubmit={HandleSubmit}>
-        <input type="text" id="feedback" placeholder={props.user.feedback} />
+        <input type="text" id="feedback" placeholder={user.feedback} />
         <br />
         <input type="submit" value="Save" />
       </form>

@@ -1,5 +1,8 @@
-type ResourceRatingFeedback {
-  resourceId: ID!
+interface Node {
+  id: ID!
+}
+type ResourceRatingFeedback implements Node {
+  id: ID!
   resourceType: String!
   Configurations: ResourceRatingFeedbackConfigurations!
   averageRating: Float!
@@ -9,8 +12,8 @@ type ResourceRatingFeedbackConfigurations {
   enableRatingsOnResource: Boolean!
   enableFeedbackOnResourse: Boolean!
 }
-type UserResourceRatingFeedback {
-  userId: ID!
+type UserResourceRatingFeedback implements Node {
+  id: ID!
   resourceId: ID!
   rating: Int!
   feedback: String!

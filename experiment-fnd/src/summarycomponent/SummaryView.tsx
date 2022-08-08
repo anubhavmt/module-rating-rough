@@ -4,31 +4,9 @@ import environment from "../RelayEnvironment";
 import Ratings from "../components/Ratings";
 import Overall from "../components/Overall";
 import Feedback from "../components/Feedback";
-import SummaryRating from "./SummaryRating";
 import "./index.css";
 import { useState } from "react";
 import { globalquery } from "../Query/QueryGlobal";
-
-// const globalquery = graphql`
-//   query SummaryViewQuery($resourceId: ID!, $userId: ID!) {
-//     getResourceRatingFeedback(resourceId: $resourceId) {
-//       resourceId
-//       Configurations {
-//         enableRatingsOnResource
-//         enableFeedbackOnResourse
-//       }
-//       ...Overall_ResouceFragment
-//     }
-
-//     getUserResourceRatingFeedback(userId: $userId, resourceId: $resourceId) {
-//       userId
-//       resourceId
-//       rating
-//       feedback
-//       updatedAt
-//     }
-//   }
-// `;
 
 function SummaryView(props: any) {
   const data: any = useLazyLoadQuery(globalquery, {
@@ -36,12 +14,15 @@ function SummaryView(props: any) {
     userId: "1",
   });
 
-  const [userdata, setUserdata] = useState(data.getUserResourceRatingFeedback);
+  console.log(data);
+
+  let userdata: any = data.getUserResourceRatingFeedback;
+  const [feedbackForm, setFeedbackForm] = useState(0);
 
   const configuration: any = data.getResourceRatingFeedback.Configurations;
 
-  function HandleUserdata(value: any) {
-    setUserdata(value);
+  function Off() {
+    setFeedbackForm(0);
   }
 
   return (
@@ -53,7 +34,35 @@ function SummaryView(props: any) {
       )}
 
       {configuration.enableRatingsOnResource ? (
-        <SummaryRating user={userdata} onChange={HandleUserdata} />
+        <div className="SummaryRating">
+          <Ratings user={userdata} />
+
+          {true ? (
+            <div className="SummaryFeedback">
+              {userdata.rating > 0 ? (
+                <div>
+                  {userdata.feedback === "" ? (
+                    <button onClick={() => setFeedbackForm(1)}>Add </button>
+                  ) : (
+                    <div>
+                      <p>{userdata.feedback}</p>
+                      <button onClick={() => setFeedbackForm(1)}>Edit</button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                ""
+              )}
+              {feedbackForm ? (
+                <Feedback visibility={Off} user={userdata} />
+              ) : (
+                ""
+              )}
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
       ) : (
         ""
       )}

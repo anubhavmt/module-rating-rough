@@ -6,11 +6,10 @@ import UserDetail from "./UserDetail";
 const AdminView = graphql`
   query AdminUserDetailQuery($userId: ID!, $resourceId: ID!) {
     getUserResourceRatingFeedback(userId: $userId, resourceId: $resourceId) {
-      userId
-      resourceId
+      id
       rating
       feedback
-      updatedAt
+      ...UserDetail_AdminFragment
     }
   }
 `;
@@ -20,18 +19,20 @@ function AdminUserDetail(props: any) {
     userId: "1",
     resourceId: "2",
   });
+  console.log(data);
   console.log("AdminUserDetial");
 
   const [popup, setPopup] = useState(0);
-  const [userdata, setUserdata] = useState(data.getUserResourceRatingFeedback);
+  // const [userdata, setUserdata] = useState(data.getUserResourceRatingFeedback);
+  let userdata: any = data.getUserResourceRatingFeedback;
 
   function OffVisibility() {
     setPopup(0);
   }
 
-  function UpdateUser(data: any) {
-    setUserdata(data);
-  }
+  // function UpdateUser(data: any) {
+  // setUserdata(data);
+  // }
 
   return (
     <div>
@@ -45,7 +46,6 @@ function AdminUserDetail(props: any) {
           {popup ? (
             <UserDetail
               user={userdata}
-              updateuser={UpdateUser}
               visibility={OffVisibility}
               username={props.username}
               useremail={props.useremail}

@@ -18,14 +18,10 @@ function PopupRating(props: any) {
             <p>no overall</p>
           )}
           {/* configuration.enableRatingsOnResource  */}
-          <Ratings onChange={props.onChangeUser} user={props.userdata} />
+          <Ratings user={props.userdata} />
 
           {props.userdata.rating > 0 ? (
-            <Feedback
-              visibility={Off}
-              onChange={props.onChangeUser}
-              user={props.userdata}
-            />
+            <Feedback visibility={Off} user={props.userdata} />
           ) : (
             ""
           )}

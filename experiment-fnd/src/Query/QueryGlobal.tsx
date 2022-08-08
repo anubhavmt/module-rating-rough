@@ -1,10 +1,9 @@
 import { graphql } from "babel-plugin-relay/macro";
-import { useLazyLoadQuery } from "react-relay";
 
 const globalquery = graphql`
   query QueryGlobalQuery($resourceId: ID!, $userId: ID!) {
     getResourceRatingFeedback(resourceId: $resourceId) {
-      resourceId
+      id
       Configurations {
         enableRatingsOnResource
         enableFeedbackOnResourse
@@ -13,11 +12,12 @@ const globalquery = graphql`
     }
 
     getUserResourceRatingFeedback(userId: $userId, resourceId: $resourceId) {
-      userId
+      id
       resourceId
       rating
       feedback
-      updatedAt
+      ...Feedback_UserFragment
+      ...Ratings_UserRatings
     }
   }
 `;

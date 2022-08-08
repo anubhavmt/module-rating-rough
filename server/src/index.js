@@ -7,18 +7,18 @@ const appTypeDefs = readFileSync(schemaPath, { encoding: "utf-8" });
 const typeDefs = gql(appTypeDefs);
 
 const Resource = {
-  resourceId: "1",
+  id: "1",
   resourceType: "random",
   Configurations: {
-    enableRatingsOnResource: false,
-    enableFeedbackOnResourse: false,
+    enableRatingsOnResource: true,
+    enableFeedbackOnResourse: true,
   },
   averageRating: 4.6,
   totalRatings: 1000,
 };
 
 const user = {
-  userId: "2",
+  id: "2",
   resourceId: "1",
   rating: 0,
   feedback: "",

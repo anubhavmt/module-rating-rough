@@ -1,12 +1,23 @@
 import { graphql } from "babel-plugin-relay/macro";
+import { useFragment } from "react-relay";
 import { commitMutation } from "relay-runtime";
 import environment from "../RelayEnvironment";
 import "./index.css";
 
+const UserdetialFragment = graphql`
+  fragment UserDetail_AdminFragment on UserResourceRatingFeedback {
+    id
+    resourceId
+    rating
+    feedback
+    updatedAt
+  }
+`;
+
 const UserReviewReset = graphql`
   mutation UserDetailMutation($userId: ID!, $resourceId: ID!) {
     resetUserResourceRatingFeedback(userId: $userId, resourceId: $resourceId) {
-      userId
+      id
       rating
       feedback
     }
@@ -14,21 +25,15 @@ const UserReviewReset = graphql`
 `;
 
 function UserDetail(props: any) {
+  let user: any = useFragment(UserdetialFragment, props.user);
+
   function HandleReset() {
     commitMutation(environment, {
       mutation: UserReviewReset,
       variables: {
-        userId: props.user.userId,
-        resourceId: props.user.resourceId,
+        userId: user.id,
+        resourceId: user.resourceId,
       },
-    });
-
-    props.updateuser({
-      userId: props.user.userId,
-      resourceId: props.user.resourceId,
-      rating: 0,
-      feedback: "",
-      updatedAt: 0,
     });
   }
   return (
@@ -39,19 +44,19 @@ function UserDetail(props: any) {
       </div>
       <div className="review">
         <h2>Rating</h2> <br />
-        {props.user.rating}
+        {user.rating}
         <br />
-        {props.user.feedback === "" ? (
+        {user.feedback === "" ? (
           ""
         ) : (
           <p>
             <h2>Feedback </h2> <br />
-            {props.user.feedback}
+            {user.feedback}
           </p>
         )}
       </div>
       <div>
-        {props.user.feedback === "" ? (
+        {user.feedback === "" ? (
           <button onClick={HandleReset}>Reset Rating</button>
         ) : (
           <button onClick={HandleReset}>Reset Rating & Feedback</button>
