@@ -23,16 +23,12 @@ function AdminUserDetail(props: any) {
   console.log("AdminUserDetial");
 
   const [popup, setPopup] = useState(0);
-  // const [userdata, setUserdata] = useState(data.getUserResourceRatingFeedback);
+
   let userdata: any = data.getUserResourceRatingFeedback;
 
   function OffVisibility() {
     setPopup(0);
   }
-
-  // function UpdateUser(data: any) {
-  // setUserdata(data);
-  // }
 
   return (
     <div>

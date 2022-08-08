@@ -17,7 +17,7 @@ function PopupRating(props: any) {
           ) : (
             <p>no overall</p>
           )}
-          {/* configuration.enableRatingsOnResource  */}
+
           <Ratings user={props.userdata} />
 
           {props.userdata.rating > 0 ? (

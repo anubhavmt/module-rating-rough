@@ -6,6 +6,7 @@ import environment from "../RelayEnvironment";
 const RatingConfig = graphql`
   query EnableRatingConfigurationQuery($resourceId: ID!) {
     getResourceRatingFeedback(resourceId: $resourceId) {
+      id
       Configurations {
         enableRatingsOnResource
         enableFeedbackOnResourse
@@ -36,12 +37,8 @@ function EnableRating() {
   const data: any = useLazyLoadQuery(RatingConfig, {
     resourceId: "1",
   });
-  console.log(data);
 
   let configuration: any = data.getResourceRatingFeedback.Configurations;
-  // const [configuration, setConfiguration] = useState(
-  //   data.getResourceRatingFeedback.Configurations
-  // );
 
   function HandleToggle(e: any) {
     e.preventDefault();
@@ -49,12 +46,6 @@ function EnableRating() {
     if (e.target[0].value === "ON") {
       value = true;
     }
-
-    // console.log(value);
-    // setConfiguration({
-    //   enableRatingsOnResource: value,
-    //   enableFeedbackOnResourse: configuration.enableFeedbackOnResourse,
-    // });
 
     commitMutation(environment, {
       mutation: RatingConfigMutation,

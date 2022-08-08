@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<25bdbde4188e8fbd66509f670772a554>>
+ * @generated SignedSource<<689167f92d6537992ff19d167ef6952c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,6 +18,7 @@ export type EnableRatingConfigurationQuery$data = {
       readonly enableFeedbackOnResourse: boolean;
       readonly enableRatingsOnResource: boolean;
     };
+    readonly id: string;
   };
 };
 export type EnableRatingConfigurationQuery = {
@@ -35,56 +36,62 @@ var v0 = [
 ],
 v1 = [
   {
-    "kind": "Variable",
-    "name": "resourceId",
-    "variableName": "resourceId"
+    "alias": null,
+    "args": [
+      {
+        "kind": "Variable",
+        "name": "resourceId",
+        "variableName": "resourceId"
+      }
+    ],
+    "concreteType": "ResourceRatingFeedback",
+    "kind": "LinkedField",
+    "name": "getResourceRatingFeedback",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "id",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "ResourceRatingFeedbackConfigurations",
+        "kind": "LinkedField",
+        "name": "Configurations",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "enableRatingsOnResource",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "enableFeedbackOnResourse",
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ],
+    "storageKey": null
   }
-],
-v2 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "ResourceRatingFeedbackConfigurations",
-  "kind": "LinkedField",
-  "name": "Configurations",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "enableRatingsOnResource",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "enableFeedbackOnResourse",
-      "storageKey": null
-    }
-  ],
-  "storageKey": null
-};
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "EnableRatingConfigurationQuery",
-    "selections": [
-      {
-        "alias": null,
-        "args": (v1/*: any*/),
-        "concreteType": "ResourceRatingFeedback",
-        "kind": "LinkedField",
-        "name": "getResourceRatingFeedback",
-        "plural": false,
-        "selections": [
-          (v2/*: any*/)
-        ],
-        "storageKey": null
-      }
-    ],
+    "selections": (v1/*: any*/),
     "type": "Query",
     "abstractKey": null
   },
@@ -93,39 +100,19 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "EnableRatingConfigurationQuery",
-    "selections": [
-      {
-        "alias": null,
-        "args": (v1/*: any*/),
-        "concreteType": "ResourceRatingFeedback",
-        "kind": "LinkedField",
-        "name": "getResourceRatingFeedback",
-        "plural": false,
-        "selections": [
-          (v2/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      }
-    ]
+    "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "9ba02e416548a9a805bfce79c6fcb752",
+    "cacheID": "a8ee9e7e2d3983c354c05131ba8f40c2",
     "id": null,
     "metadata": {},
     "name": "EnableRatingConfigurationQuery",
     "operationKind": "query",
-    "text": "query EnableRatingConfigurationQuery(\n  $resourceId: ID!\n) {\n  getResourceRatingFeedback(resourceId: $resourceId) {\n    Configurations {\n      enableRatingsOnResource\n      enableFeedbackOnResourse\n    }\n    id\n  }\n}\n"
+    "text": "query EnableRatingConfigurationQuery(\n  $resourceId: ID!\n) {\n  getResourceRatingFeedback(resourceId: $resourceId) {\n    id\n    Configurations {\n      enableRatingsOnResource\n      enableFeedbackOnResourse\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "da31d0cfac31eb6139aa07a6d232fb1b";
+(node as any).hash = "4c2863a8bf1c6bc55a15c461d9a2694f";
 
 export default node;
