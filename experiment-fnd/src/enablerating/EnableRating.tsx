@@ -1,5 +1,6 @@
 import { graphql } from "babel-plugin-relay/macro";
 import { useState } from "react";
+import { useMutation } from "react-relay";
 import { commitMutation, useLazyLoadQuery } from "react-relay";
 import environment from "../RelayEnvironment";
 
@@ -38,7 +39,10 @@ function EnableRating() {
     resourceId: "1",
   });
 
+  console.log(data);
+
   let configuration: any = data.getResourceRatingFeedback.Configurations;
+  const [commit, isInFlight] = useMutation(RatingConfigMutation);
 
   function HandleToggle(e: any) {
     e.preventDefault();
@@ -47,8 +51,7 @@ function EnableRating() {
       value = true;
     }
 
-    commitMutation(environment, {
-      mutation: RatingConfigMutation,
+    commit({
       variables: {
         resourceId: "1",
         configurations: {
@@ -56,9 +59,19 @@ function EnableRating() {
           enableFeedbackOnResourse: configuration.enableFeedbackOnResourse,
         },
       },
+      onError(e: any) {
+        alert("Please Try again ratings wasn't enabled");
+        console.log(e);
+      },
+      onCompleted(data: any) {
+        alert("Rating enabled Successfully Added ");
+        console.log(data);
+      },
     });
   }
-
+  if (isInFlight) {
+    return <div>Loading.....</div>;
+  }
   return (
     <div>
       {configuration.enableRatingsOnResource ? (
