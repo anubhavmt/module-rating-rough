@@ -10,7 +10,7 @@ const Resource = {
   resourceId: "1",
   resourceType: "random",
   Configurations: {
-    enableRatingsOnResource: false,
+    enableRatingsOnResource: true,
     enableFeedbackOnResourse: false,
   },
   averageRating: 4.6,
